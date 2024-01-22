@@ -1,11 +1,10 @@
 import React,{ Component } from 'react';
-import './index.css';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 
-import Image from "./Image";
-import HomePage  from './HomePage';
+import Image from "../image/Image";
+import HomePage  from '../home/HomePage';
 const { Header, Content, Footer, Sider } = Layout;
 
 

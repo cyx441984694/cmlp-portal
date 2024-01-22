@@ -1,5 +1,4 @@
 import React, { useState, useEffect} from 'react';
-import './index.css';
 import { DownOutlined } from '@ant-design/icons';
 import { Drawer, InputRef } from 'antd';
 import type { TableColumnsType, TableProps } from 'antd';
@@ -64,18 +63,20 @@ const handleRefresh = (key: React.Key) => {
     console.log("hello refreshing")
 };
 
+const handlePromote = () => {
+  console.log("hello promoting")
+}
+
+const onFinish = (value:any) =>{
+  console.log('success: ', value);
+  console.log('environment value is: ', value.environment)
+};
 
 const Image: React.FC = () => {
-
-//   const handleSubmit = (event) => {
-//   console.log("checking")
-//   console.log(event.target)
-//   };
-        
     
-
   const [visible, setVisible] = useState(false);
   const [checkStrictly, setCheckStrictly] = useState(false);
+  
   const expandedRowRender = () => {
     const columns: TableColumnsType<ExpandedDataType> = [
       { title: 'Tag', dataIndex: 'tag', key: 'tag' },
@@ -97,14 +98,16 @@ const Image: React.FC = () => {
           <Button type="text" onClick={()=>{setVisible(true);}}>Promote</Button>
           <Popconfirm title="Sure to refresh?" onConfirm={() => handleRefresh(record.key)}><a>Refresh</a></Popconfirm>
           <Drawer width={800} title="Configure" placement="right" visible={visible} closable={false} onClose={()=> {setVisible(false)}}>
-          <Form layout="vertical" hideRequiredMark>
+          <Form layout="vertical" hideRequiredMark
+            name="basic" onFinish={onFinish}
+          >
               <Row gutter={16}>
                 <Col span={12}>
                   <Form.Item
-                    name="environment"
-                    placeholder="environment"
+                    name="environment" 
                     label="environment"
-                    rules={[{ required: true, message: 'Please select environment to promote' }]}>
+                    rules={[{ required: true, message: 'Please select environment to promote' }]}
+                    >
                     <Select placeholder="Please select environment to promote">
                       <Option value="uat">uat</Option>
                       <Option value="prod">prod</Option>
@@ -117,7 +120,7 @@ const Image: React.FC = () => {
                     label="nexus_path"
                     rules={[{ required: false, message: 'Please input nexus path' }]}
                   >
-                    <Input placeholder="Please input nexus path"/>
+                    <Input placeholder="Please input nexus path" ></Input>
                   </Form.Item>
                 </Col>
               </Row>
@@ -131,7 +134,7 @@ const Image: React.FC = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              <Button onClick={()=>{setVisible(false);}}>Submit</Button>
+              <Button htmlType="submit">Submit</Button>
               <Button onClick={()=>{setVisible(false);}}>Cancel</Button>
             </Form>
           </Drawer>
